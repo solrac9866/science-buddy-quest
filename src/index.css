@@ -2,41 +2,61 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* Educational Science Design System - All colors MUST be HSL */
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Science-themed color palette */
+    --background: 210 20% 98%;
+    --foreground: 220 30% 15%;
 
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card-foreground: 220 30% 15%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover-foreground: 220 30% 15%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    /* Primary: Deep science blue */
+    --primary: 210 100% 40%;
+    --primary-foreground: 210 20% 98%;
+    --primary-hover: 210 100% 35%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    /* Secondary: Nature green */
+    --secondary: 140 60% 45%;
+    --secondary-foreground: 210 20% 98%;
+    --secondary-hover: 140 60% 40%;
 
-    --muted: 210 40% 96.1%;
+    /* Accent: Energy orange */
+    --accent: 25 95% 55%;
+    --accent-foreground: 210 20% 98%;
+    --accent-hover: 25 95% 50%;
+
+    --muted: 210 40% 96%;
     --muted-foreground: 215.4 16.3% 46.9%;
-
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --ring: 210 100% 40%;
 
-    --radius: 0.5rem;
+    --radius: 0.75rem;
+
+    /* Science gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(210 100% 40%), hsl(220 70% 50%));
+    --gradient-secondary: linear-gradient(135deg, hsl(140 60% 45%), hsl(160 70% 40%));
+    --gradient-accent: linear-gradient(135deg, hsl(25 95% 55%), hsl(35 90% 60%));
+    --gradient-hero: linear-gradient(135deg, hsl(210 100% 40%), hsl(140 60% 45%));
+    
+    /* Shadows */
+    --shadow-science: 0 10px 30px -10px hsl(210 100% 40% / 0.3);
+    --shadow-card: 0 4px 20px -4px hsl(220 30% 15% / 0.1);
+    --shadow-glow: 0 0 40px hsl(210 100% 40% / 0.2);
+
+    /* Transitions */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 
     --sidebar-background: 0 0% 98%;
 
@@ -94,12 +114,92 @@ All colors MUST be HSL.
   }
 }
 
+}
+
 @layer base {
   * {
     @apply border-border;
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-sans;
+  }
+}
+
+@layer components {
+  /* Flip card animation for flashcards */
+  .flip-card {
+    background-color: transparent;
+    perspective: 1000px;
+  }
+  
+  .flip-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+  }
+  
+  .flip-card.flipped .flip-card-inner {
+    transform: rotateY(180deg);
+  }
+  
+  .flip-card-front, .flip-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    border-radius: var(--radius);
+  }
+  
+  .flip-card-back {
+    transform: rotateY(180deg);
+  }
+
+  /* Science subject gradients */
+  .biology-gradient {
+    background: var(--gradient-secondary);
+  }
+  
+  .physics-gradient {
+    background: var(--gradient-primary);
+  }
+  
+  .chemistry-gradient {
+    background: var(--gradient-accent);
+  }
+
+  .hero-gradient {
+    background: var(--gradient-hero);
+  }
+
+  /* Interactive animations */
+  .hover-lift {
+    transition: var(--transition-smooth);
+  }
+  
+  .hover-lift:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-science);
+  }
+
+  .science-glow {
+    box-shadow: var(--shadow-glow);
+  }
+
+  .bounce-enter {
+    animation: bounceIn 0.6s var(--transition-bounce);
+  }
+}
+
+@layer utilities {
+  .text-gradient {
+    background: var(--gradient-hero);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
   }
 }
